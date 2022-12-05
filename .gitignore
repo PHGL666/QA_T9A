@@ -9,3 +9,4 @@
 # ne pas ignorer
 !.gitignore
 !README.md
+!requirements.txt
