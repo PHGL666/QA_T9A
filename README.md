@@ -17,9 +17,9 @@ Python >= 3.8 doit être installé au préalable sur votre machine.
 
 1. **Répertoire de travail**
 
-    Créer un répertoire dans %LOCALAPPDATA% qui sera votre répertoire de travail pour vos tests et dans lequel vous pourrez installer tous vos différents projets en plus de T9A. Dans mon cas il s'agira du répertoire **test_factory**.
+    Créer un répertoire dans %LOCALAPPDATA% qui sera votre répertoire de travail pour vos tests et dans lequel vous pourrez installer tous vos différents projets en plus de T9A. Dans mon cas il s'agira du répertoire **TEST_FACTORY**.
 
-    `%LOCALAPPDATA%\test_factory`
+    `%LOCALAPPDATA%\TEST_FACTORY`
 
     > Dans ce répertoire nous configurerons les répertoires et fichiers suivants :
 
@@ -27,18 +27,18 @@ Python >= 3.8 doit être installé au préalable sur votre machine.
 
     `jdk-11.0.16.1+1` | client de java qui permettra l'exécution de l'ordonnanceur Jenkins.
 
-    `jenkins` | client de Jenkins.
+    `JENKINS` | client de Jenkins.
 
     `test_projects` | répertoire qui contient nos projets dont T9A.
 
-    `JENKINS_CONFIG_JOB.bat` | fichier de configurations des jobs dans Jenkins.
+    `JENKINS_CONFIG_JOB.bat` | fichier de configurations des jobs dans JENKINS.
 
     `JENKINS_LANCEUR.bat` | fichier pour lancer Jenkins. 
 
 
 3. **Récupération du projet**
 
-    Cloner le [projet_T9A](https://github.com/PHGL666/T9A_TNR) sur votre machine dans le répertoire **%LOCALAPPDATA%\test_factory\test_projects\T9A**
+    Cloner le [projet_T9A](https://github.com/PHGL666/T9A_TNR) sur votre machine dans le répertoire **%LOCALAPPDATA%\TEST_FACTORY\test_projects\T9A**
 
 
 4. **Création de l’environnement virtuel python**
@@ -76,7 +76,7 @@ Python >= 3.8 doit être installé au préalable sur votre machine.
 
     L'emplacement de l'exécutable WEBDRIVER doit être connu de votre système (PATH).
 
-    Nous pouvons créer un répertoire `%LOCALAPPDATA%\test_factory\bin` et ajouter ce chemin dans la variable d'environnement PATH de l'utilisateur (obs : relancer le terminal ou VS Code pour prise en compte de la modification du PATH).
+    Nous pouvons créer un répertoire `%LOCALAPPDATA%\TEST_FACTORY\bin` et ajouter ce chemin dans la variable d'environnement PATH de l'utilisateur (obs : relancer le terminal ou VS Code pour prise en compte de la modification du PATH).
 
     **Liens des webdrivers**
 
@@ -88,10 +88,51 @@ Python >= 3.8 doit être installé au préalable sur votre machine.
 
     [EDGE](https://developer.microsoft.com/fr-fr/microsoft-edge/tools/webdriver/) | si besoin d'Edge (version chromium).
 
-    > Déposez les exécutables chromedriver.exe et geckodriver.exe dans votre dossier **bin**.
+    ==> Déposez les exécutables chromedriver.exe et geckodriver.exe dans votre dossier **bin**.
 
 
 7. **Installation de Jenkins**
+
+    Prérequis : avoir JVM 11 max pour lancer Jenkins, nous allons utiliser un JDK en ZIP qui sera portable et indépendant de notre système : 
+
+    Télécharger le [JDK](https://adoptium.net/temurin/releases/?version=11), par exemple la version 11.0.16.1+1 et dézipper le dans notre workspace `%LOCALAPPDATA%\TEST_FACTORY`.
+
+    Créer un répertoire JENKINS dans notre workspace `%LOCALAPPDATA%\TEST_FACTORY\JENKINS`.
+
+    Télécharger un client récent de [Jenkins LTS](https://www.jenkins.io/download/), par exemple la version 2.361.2 LTS. Nous utiliserons le fichier WAR qui sera portable et lui aussi indépendant de notre système. 
+
+    **Lancer jenkins** : vérifier que le JENKINS_LANCEUR.bat se trouve bien à la racine `%LOCALAPPDATA%\TEST_FACTORY` et que les variables des paths sont conformes à celles que vous avez défini préalablement. Exécuter le fichier qui va générer un token à utiliser pour se connecter sur l'url http://localhost:9090
+
+    **Plugins** : installez les plugins Test Results Analyser et Robot Framework. 
+
+    Dans le job que nous copierons le contenu du fichier JENKINS_CONFIG_JOB.bat dans :
+    >Build Steps > Execute Windows batch command :
+
+    Pour le reporting ajouter l'étape dans la section :
+    
+    >Post Build > Publish JUnit test result report, et copier y le texte suivant : OUTPUT\test-results.xml
+
+    >Post Build > Publish Robot Framework test results
+    >> OUTPUT
+    >>> 80
+    >>>> 90
+
+    Nous pouvons paramétrer nos jobs sur jenkins :)
+
+
+8. **Robot Framework**
+
+    **[Documentation librairies natives de Robot Framework](https://robotframework.org/#resources)**
+
+    **[Documentation librairies externes de Robot Framework](https://robotframework.org/?tab=libraries#resources)**
+
+    **[Variables d'environnement du système](https://robotframework.org/robotframework/latest/RobotFrameworkUserGuide.html#environment-variables)** | RF permet d'utiliser des variables d'environnement dans les données de test à l'aide de la syntaxe %{ENV_VAR_NAME}, (string uniquement).
+
+
+9. **Selenium**
+
+
+    **[Keywords RF Selenium](https://robotframework.org/SeleniumLibrary/SeleniumLibrary.html)**
 
 ## EXECUTER LES TESTS DE NON REGRESSIONS
 Ici comment lancer les tests en mode CLI ou VS Code
