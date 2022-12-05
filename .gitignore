@@ -1,0 +1,11 @@
+# tout ignorer
+/*
+
+# environnement virtuel python qui contient les librairies et sur lequel on exécute nos tests
+/venv
+# output contient les logs et rapports générés par Robot Framework
+/output
+
+# ne pas ignorer
+!.gitignore
+!README.md
