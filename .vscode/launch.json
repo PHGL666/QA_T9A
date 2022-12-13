@@ -31,7 +31,7 @@
         "type": "pickString",
         "id": "tag",
         "description": "Votre sélection par tag : ",
-        "options": ["tnr", "web"],
+        "options": ["tnr", "web", "language"],
         "default": "tnr"
         }
     ]
