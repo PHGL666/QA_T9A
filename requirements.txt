@@ -22,6 +22,7 @@ pytz==2022.5
 rich==12.6.0
 rich-click==1.4
 robotframework==5.0.1
+robotframework-jsonlibrary==0.5
 robotframework-pythonlibcore==3.0.0
 robotframework-robocop==2.5.0
 robotframework-seleniumlibrary==6.0.0
