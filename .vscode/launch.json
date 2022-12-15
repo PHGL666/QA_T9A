@@ -10,6 +10,7 @@
             "terminal": "integrated",
             "env": {
                 "PROJECT_FOLDER": "${workspaceFolder}",
+                "BROWSER": "${browser}"
             },
             "args": [
             "--nostatusrc",
@@ -25,7 +26,7 @@
         "id": "browser",
         "description": "Votre navigateur : ",
         "options": ["chrome", "firefox"],
-        "default": "chrome"
+        "default": "firefox"
         },
         {
         "type": "pickString",
